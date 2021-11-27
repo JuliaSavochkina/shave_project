@@ -1,12 +1,15 @@
 from flask import Flask
 
-
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return 'Ok'
+    response = {
+        "status": 200,
+        "message": "ok",
+    }
+    return response
 
 
 @app.route('/auth', methods=['POST'])
