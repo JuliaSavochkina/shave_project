@@ -1,10 +1,13 @@
 import yaml
+from werkzeug.datastructures import ImmutableMultiDict
 
 
 def is_allowed(login: str, password: str) -> bool:
     """
     проверяет допуск пользователя по логину и паролю переданному в теле запроса в виде json
-    :return:
+    :param login: переданный в боди при переходе логин
+    :param password: переданный в боди при переходе пароль
+    :return: bool
     """
     auth_given = {'login': login, 'pass': password}
     auth_known = []
