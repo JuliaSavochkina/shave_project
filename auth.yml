@@ -1,9 +1,9 @@
 1:
-  login: aaa
-  pass: 111
+  login: 'aaa'
+  pass: '111'
 2:
-  login: bbb
-  pass: 222
+  login: 'bbb'
+  pass: '222'
 3:
-  login: ccc
-  pass: 333
+  login: 'ccc'
+  pass: '333'
