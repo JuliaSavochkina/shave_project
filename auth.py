@@ -7,7 +7,7 @@ def is_allowed(login: str, password: str) -> bool:
     проверяет допуск пользователя по логину и паролю переданному в теле запроса в виде json
     :param login: переданный в боди при переходе логин
     :param password: переданный в боди при переходе пароль
-    :return: bool
+    :return: идентификатор того, авторизован ли пользователь
     """
     auth_given = {'login': login, 'pass': password}
     auth_known = []
@@ -18,14 +18,10 @@ def is_allowed(login: str, password: str) -> bool:
     return auth_given in auth_known
 
 
-def goto_shave():
+def goto_shave(params: ImmutableMultiDict):
     """
     редиректит пользователя на ендпоинт /shave, со всемми гет параметрами, которые были в ссылке
     и проставляет ему идентификтор в куку
     :return:
     """
     pass
-
-
-if __name__ == '__main__':
-    is_allowed('aaa', '111')
