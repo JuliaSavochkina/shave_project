@@ -1,6 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify, request
 
-from auth import is_allowed, goto_shave
+from auth import is_allowed
 
 app = Flask(__name__)
 
@@ -19,7 +19,7 @@ def auth():
     if request.method == 'POST':
         login = request.form.get('login')
         password = request.form.get('password')
-        if login is None or password is None:
+        if not login or not password:
             return jsonify({"error": "One of the required parameters is missing",
                             "description": "Use both login and password"}), 401
         elif is_allowed(login, password):
@@ -31,9 +31,6 @@ def auth():
     else:
         return jsonify({"error": "Method Not Allowed",
                         "description": "Use GET"}), 405
-
-    return {'status': 200,
-            'message': 'OK'}
 
 
 @app.route('/shave', methods=['GET'])
