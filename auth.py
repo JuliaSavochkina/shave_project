@@ -1,4 +1,5 @@
 import yaml
+from flask import redirect
 from werkzeug.datastructures import ImmutableMultiDict
 
 
@@ -24,4 +25,15 @@ def goto_shave(params: ImmutableMultiDict):
     и проставляет ему идентификтор в куку
     :return:
     """
-    pass
+    parameters = dict(params)
+    parameters_to_string = []
+    for key, value in parameters.items():
+        parameters_to_string.append(f'{key}={value}')
+    result = "&".join(parameters_to_string)
+    location = f'http://0.0.0.0:5000/shave?{result}'
+    print(location)
+    return redirect(location=location, code=200)
+
+
+if __name__ == '__main__':
+    goto_shave(ImmutableMultiDict([('first', '111'), ('second', 'aaa')]))
