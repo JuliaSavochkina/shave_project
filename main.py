@@ -20,7 +20,7 @@ def auth():
         content = request.json
         login = content.get('login')
         password = content.get('password')
-        params =request.args
+        params = request.args
         if not login or not password:
             return jsonify({"error": "One of the required parameters is missing",
                             "description": "Use both login and password"}), 401
