@@ -1,3 +1,5 @@
+from typing import Optional
+
 import yaml
 from flask import redirect
 from werkzeug.datastructures import ImmutableMultiDict
@@ -19,16 +21,19 @@ def is_allowed(login: str, password: str) -> bool:
     return auth_given in auth_known
 
 
-def goto_shave(params: ImmutableMultiDict):
+def goto_shave(params: Optional[ImmutableMultiDict] = None):
     """
     редиректит пользователя на ендпоинт /shave, со всемми гет параметрами, которые были в ссылке
     и проставляет ему идентификтор в куку
     :return:
     """
     parameters = dict(params)
-    parameters_to_string = []
-    for key, value in parameters.items():
-        parameters_to_string.append(f'{key}={value}')
-    result = "&".join(parameters_to_string)
-    location = f'http://0.0.0.0:5000/shave?{result}'
+    if parameters:
+        parameters_to_string = []
+        for key, value in parameters.items():
+            parameters_to_string.append(f'{key}={value}')
+        result = "&".join(parameters_to_string)
+        location = f'http://0.0.0.0:5000/shave?{result}'
+    else:
+        location = 'http://0.0.0.0:5000/shave'
     return redirect(location=location, code=200)
