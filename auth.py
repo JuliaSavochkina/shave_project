@@ -32,7 +32,3 @@ def goto_shave(params: ImmutableMultiDict):
     result = "&".join(parameters_to_string)
     location = f'http://0.0.0.0:5000/shave?{result}'
     return redirect(location=location, code=200)
-
-
-if __name__ == '__main__':
-    goto_shave(ImmutableMultiDict([('first', '111'), ('second', 'aaa')]))
