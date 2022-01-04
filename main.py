@@ -17,8 +17,9 @@ def index():
 @app.route('/auth', methods=['GET', 'POST'])
 def auth():
     if request.method == 'POST':
-        login = request.form.get('login')
-        password = request.form.get('password')
+        content = request.json
+        login = content.get('login')
+        password = content.get('password')
         params =request.args
         if not login or not password:
             return jsonify({"error": "One of the required parameters is missing",
