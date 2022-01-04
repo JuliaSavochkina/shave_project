@@ -31,7 +31,6 @@ def goto_shave(params: ImmutableMultiDict):
         parameters_to_string.append(f'{key}={value}')
     result = "&".join(parameters_to_string)
     location = f'http://0.0.0.0:5000/shave?{result}'
-    print(location)
     return redirect(location=location, code=200)
 
 
