@@ -25,7 +25,7 @@ def auth():
             return jsonify({"error": "One of the required parameters is missing",
                             "description": "Use both login and password"}), 401
         elif is_allowed(login, password):
-            goto_shave(params)
+            return goto_shave(params)
         else:
             return jsonify({"error": "Access denied",
                             "description": "Use correct login and password"}), 403
