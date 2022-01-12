@@ -1,4 +1,4 @@
-def get_id():
+def get_id_from_cookie():
     """
     получает идентифиратор пользователя
     :return:
