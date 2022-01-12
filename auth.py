@@ -1,3 +1,4 @@
+from http import cookies
 from typing import Optional
 
 import yaml
@@ -36,4 +37,11 @@ def goto_shave(params: Optional[ImmutableMultiDict] = None):
         location = f'http://0.0.0.0:5000/shave?{result}'
     else:
         location = 'http://0.0.0.0:5000/shave'
-    return redirect(location=location, code=200)
+    return redirect(location=location, code=302)
+
+
+def set_cookie_with_id(login: str, password: str):
+    log = cookies.SimpleCookie()
+    passw = cookies.SimpleCookie()
+    log['login'] = login
+    passw['password'] = password
