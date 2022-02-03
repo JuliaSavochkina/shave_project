@@ -1,7 +1,8 @@
+import datetime
 from typing import Optional
 
 import yaml
-from flask import redirect
+from flask import redirect, Response
 from werkzeug.datastructures import ImmutableMultiDict
 
 
@@ -21,10 +22,13 @@ def is_allowed(login: str, password: str) -> bool:
     return auth_given in auth_known
 
 
-def goto_shave(params: Optional[ImmutableMultiDict] = None):
+def goto_shave(login: str, password: str, params: Optional[ImmutableMultiDict] = None) -> Response:
     """
     редиректит пользователя на ендпоинт /shave, со всемми гет параметрами, которые были в ссылке
-    и проставляет ему идентификтор в куку
+    и проставляет ему в куку логин и пароль, а также время простановки кук для определения возможности шейва.
+    :param login: значение переданное в body в качестве логина
+    :param password: значение переданное в body в качестве пароля
+    :param params: get-параметры ссылки, если есть
     :return:
     """
     parameters = dict(params)
@@ -36,4 +40,9 @@ def goto_shave(params: Optional[ImmutableMultiDict] = None):
         location = f'http://0.0.0.0:5000/shave?{result}'
     else:
         location = 'http://0.0.0.0:5000/shave'
-    return redirect(location=location, code=200)
+    res = redirect(location=location, code=302)
+    res.set_cookie("Login", value=login)
+    res.set_cookie("Password", value=password)
+    time = str(datetime.datetime.now())
+    res.set_cookie('DateSet', value=time)
+    return res

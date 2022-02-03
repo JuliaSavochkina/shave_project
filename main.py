@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 
 from auth import is_allowed, goto_shave
 
@@ -25,7 +25,7 @@ def auth():
             return jsonify({"error": "One of the required parameters is missing",
                             "description": "Use both login and password"}), 401
         elif is_allowed(login, password):
-            return goto_shave(params)
+            return goto_shave(login, password, params)
         else:
             return jsonify({"error": "Access denied",
                             "description": "Use correct login and password"}), 403
@@ -36,7 +36,7 @@ def auth():
 
 @app.route('/shave', methods=['GET'])
 def shave():
-    pass
+    вернуть куки в виде сообщения
 
 
 @app.route('/marketplace', methods=['GET'])
