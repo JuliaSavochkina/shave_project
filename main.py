@@ -1,6 +1,6 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 
-from auth import is_allowed, goto_shave, set_cookie_with_id
+from auth import is_allowed, goto_shave
 
 app = Flask(__name__)
 
@@ -25,8 +25,7 @@ def auth():
             return jsonify({"error": "One of the required parameters is missing",
                             "description": "Use both login and password"}), 401
         elif is_allowed(login, password):
-            set_cookie_with_id(login, password)
-            return goto_shave(params)
+            return goto_shave(login, password, params)
         else:
             return jsonify({"error": "Access denied",
                             "description": "Use correct login and password"}), 403
